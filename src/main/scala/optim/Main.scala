@@ -13,11 +13,11 @@ object Main extends App {
   def cubert = nthroot(3)
   def fourthrt = nthroot(4)
   
-  println(s"square root of -2:\t ${strRt(sqrt(-2))}")
-  println(s"square root of 2:\t ${strRt(sqrt(2))}")
-  println(s"cube root of 10:\t ${strRt(cubert(10))}")
-  println(s"cube root of -10: \t ${strRt(cubert(-10))}")
-  println(s"fourth root of 16: \t ${strRt(fourthrt(16))}")
+  println("square root of -2:\t%s".format(strRt(sqrt(-2))))
+  println("square root of 2:\t%s".format(strRt(sqrt(2))))
+  println("cube root of 10:\t%s".format(strRt(cubert(10))))
+  println("cube root of -10:\t%s".format(strRt(cubert(-10))))
+  println("fourth root of 16:\t%s".format(strRt(fourthrt(16))))
   
 
 }
