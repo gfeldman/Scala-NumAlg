@@ -23,8 +23,13 @@ object Newton {
     def improve(guess: DenseVector[Double]): DenseVector[Double] = guess - f(guess)*(1.0/df(guess))
     val guesses = Stream.iterate(x0)(improve)
     
-    def isGoodEnough(guess: DenseVector[Double]): Boolean = norm(f(guess)*(1.0/df(guess)),1) < tol
-    guesses.filter(isGoodEnough(_)).take(3).toList.last
+    val convergedGuesses = guesses.zip(guesses.tail)
+                                  .map{ case (oldGuess ,newGuess) => (newGuess,norm(newGuess-oldGuess,1))}
+                                  .filter{ case (newGuess,normDiff) => normDiff < tol}
+                                  .map{ case (newGuess, normDiff) => newGuess}
+                                  
+    convergedGuesses.take(1).toList.last
+    
   }
 
   def NewtonMethod1D(x0: Double,f: Double => Double, df: Double => Double, tol: Double): Double = {
