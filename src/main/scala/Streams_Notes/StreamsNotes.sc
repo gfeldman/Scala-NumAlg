@@ -1,6 +1,8 @@
 package Streams_Notes
 
-import scala.math.BigInt
+import scala.math.{BigInt,pow}
+import breeze.linalg._
+import breeze.plot._
 
 object StreamsNotes {
   def fibonacci(n:Int): List[BigInt] = {
@@ -33,4 +35,42 @@ fizzbuzz(15).foreach{println}                     //> 3	Fizz
                                                   //| 10	Buzz
                                                   //| 12	Fizz
                                                   //| 15	FizzBuzz
+
+
+/**
+* Generating uniforms using lcg
+*/
+def lcgNext(a: BigInt,c: BigInt, m: BigInt): BigInt => BigInt = {
+	x => ((a*x + c).mod(m))
+}                                                 //> lcgNext: (a: scala.math.BigInt, c: scala.math.BigInt, m: scala.math.BigInt)s
+                                                  //| cala.math.BigInt => scala.math.BigInt
+
+val a = BigInt(1103515245)                        //> a  : scala.math.BigInt = 1103515245
+val c = BigInt(12345)                             //> c  : scala.math.BigInt = 12345
+val m = BigInt(pow(2,32).toInt)                   //> m  : scala.math.BigInt = 2147483647
+val lcg = lcgNext(a,c,m)                          //> lcg  : scala.math.BigInt => scala.math.BigInt = <function1>
+val seed = BigInt(1)                              //> seed  : scala.math.BigInt = 1
+
+val states = Stream.iterate(seed)(lcg(_))         //> states  : scala.collection.immutable.Stream[scala.math.BigInt] = Stream(1, 
+                                                  //| ?)
+val us = states.map(x => x.doubleValue()/m.doubleValue()).take(1000).toList
+                                                  //> us  : List[Double] = List(4.656612875245797E-10, 0.5138700783782965, 0.4398
+                                                  //| 008065483537, 0.7894098422440746, 0.46938708772388615, 0.1094664871271078, 
+                                                  //| 0.36136545304272577, 0.44898528067813503, 0.008931668013768115, 0.816477734
+                                                  //| 510078, 0.23493939602511907, 0.16481704319120247, 0.7973211248392803, 0.420
+                                                  //| 6997614450286, 0.32245803406576534, 0.4643071389125228, 0.15230734048053032
+                                                  //| , 0.14567659057009807, 0.5337322035495807, 0.364411212207941, 0.12039872078
+                                                  //| 243584, 0.8619220204939703, 0.6163043634110617, 0.5841324644089362, 0.57468
+                                                  //| 67542968536, 0.46615290570359347, 0.9449685909529071, 0.1627077363257798, 0
+                                                  //| .5149440520978272, 0.812032317655176, 0.9651751974435407, 0.474838010256568
+                                                  //| 9, 0.22359589777122993, 0.9100194875663237, 0.7765319136793408, 0.974182378
+                                                  //| 4886777, 0.07262168362393122, 0.9965807003884486, 0.7514362436493096, 0.512
+                                                  //| 5533419254019, 0.6903843598861175, 0.04390281534004156, 0.02616147185962715
+                                                  //| 6, 0.028742816778245764
+                                                  //| Output exceeds cutoff limit.
+
+//val f = Figure()
+//val p = f.subplot(0)
+//p += hist(us,10)
+
 }

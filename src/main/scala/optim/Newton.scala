@@ -19,9 +19,11 @@ object Newton {
    */
   
   def NRMethod(x0: DenseVector[Double],f: DenseVector[Double] => Double, df: DenseVector[Double] => DenseVector[Double], tol: Double): DenseVector[Double] = {
+    
     def improve(guess: DenseVector[Double]): DenseVector[Double] = guess - f(guess)*(1.0/df(guess))
+    val guesses = Stream.iterate(x0)(improve)
+    
     def isGoodEnough(guess: DenseVector[Double]): Boolean = norm(f(guess)*(1.0/df(guess)),1) < tol
-    lazy val guesses: Stream[DenseVector[Double]] = x0 #:: (guesses.map(improve))
     guesses.filter(isGoodEnough(_)).take(3).toList.last
   }
 
