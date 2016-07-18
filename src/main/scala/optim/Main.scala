@@ -1,5 +1,5 @@
 package optim
-import optim.nthroot._
+import optim.NthRoot._
 
 
 /**
@@ -9,9 +9,9 @@ import optim.nthroot._
 object Main extends App {
     
   
-  def sqrt = nthroot(2)
-  def cubert = nthroot(3)
-  def fourthrt = nthroot(4)
+  def sqrt = nthRoot(2)
+  def cubert = nthRoot(3)
+  def fourthrt = nthRoot(4)
   
   println("square root of -2:\t%s".format(strRt(sqrt(-2))))
   println("square root of 2:\t%s".format(strRt(sqrt(2))))

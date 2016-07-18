@@ -18,11 +18,11 @@ import breeze.linalg.{DenseMatrix,DenseVector,norm}
    */
 
 
-object nthroot {
+object NthRoot {
     val x0root = 1.0
     val tolroot = 1e-10
     
-    def apply(n: Int): Double =>Either[Double, String]  ={
+    def nthRoot(n: Int): Double =>Either[Double, String]  ={
       def rootNewton(c: Double): Either[Double, String] = {
         if ((n % 2 == 0) && signum(c) == -1.0) {
           Right("Error: Solution must be real.")
