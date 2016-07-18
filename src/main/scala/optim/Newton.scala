@@ -18,18 +18,21 @@ object Newton {
    * 	The helper method isGoodEnough determines if the stopping criterion is met.
    */
   
-  def NewtonMethod(x0: DenseVector[Double])(f: DenseVector[Double] => Double, df: DenseVector[Double] => DenseVector[Double], tol: Double): DenseVector[Double] = {
+  def NRMethod(x0: DenseVector[Double],f: DenseVector[Double] => Double, df: DenseVector[Double] => DenseVector[Double], tol: Double): DenseVector[Double] = {
     def improve(guess: DenseVector[Double]): DenseVector[Double] = guess - f(guess)*(1.0/df(guess))
     def isGoodEnough(guess: DenseVector[Double]): Boolean = norm(f(guess)*(1.0/df(guess)),1) < tol
     lazy val guesses: Stream[DenseVector[Double]] = x0 #:: (guesses.map(improve))
     guesses.filter(isGoodEnough(_)).take(3).toList.last
   }
 
-  def NewtonMethod(x0: Double,f: Double => Double, df: Double => Double, tol: Double): Double = {
+  def NewtonMethod1D(x0: Double,f: Double => Double, df: Double => Double, tol: Double): Double = {
+    /**
+     * Helper method for 1 dimension that wraps the values in vectors. 
+     */
     val x0m = DenseVector(x0)
     def fm(x: DenseVector[Double]): Double= f(x(0))
     def dfm(x: DenseVector[Double]): DenseVector[Double] = DenseVector(df(x(0)))
-    val res = NewtonMethod(x0m)(fm,dfm,tol)
+    val res = NRMethod(x0m,fm,dfm,tol)
     res(0) 
   }
  

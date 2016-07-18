@@ -1,9 +1,14 @@
 package optim
 
 import math.{abs,pow,signum}
-import optim.Newton.{NewtonMethod}
+import optim.Newton.{NewtonMethod1D}
 import breeze.linalg.{DenseMatrix,DenseVector,norm}
-  /**
+
+
+object NthRoot {
+  
+  
+   /**
    * The following function uses Newton's method to compute the nth root of a number c 
    * by finding the root of the function f(x) = x^n -signum(c)*c  
    *
@@ -17,8 +22,6 @@ import breeze.linalg.{DenseMatrix,DenseVector,norm}
    * TODO improve printing 
    */
 
-
-object NthRoot {
     val x0root = 1.0
     val tolroot = 1e-10
     
@@ -33,7 +36,7 @@ object NthRoot {
           // derivative of f(x) 
           def df(x: Double): Double= n * pow(x, n - 1)
           // solution of f(x) = 0 using Newton's method
-          val res = signum(c) * NewtonMethod(x0root,f, df, tolroot)
+          val res = signum(c) * NewtonMethod1D(x0root,f, df, tolroot)
         
           Left(res)
         }
@@ -43,6 +46,9 @@ object NthRoot {
      rootNewton
     }
 
+    /**
+     * The following function returns a string of the nth root.
+     */
     def strRt(res: Either[Double,String]):String = res match {
       case Left(v) => v.toString
       case Right(msg) => msg
