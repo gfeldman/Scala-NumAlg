@@ -18,11 +18,6 @@ import breeze.linalg.{DenseMatrix,DenseVector,norm}
    */
 
 
-
-case class nthroot(n: Int, d: Int) {
-  def this(n: Int) = this(n,0)
-  
-}
 object nthroot {
     val x0root = 1.0
     val tolroot = 1e-10
