@@ -52,5 +52,15 @@
     <artifactId>spark-mllib_2.11</artifactId>
     <version>1.6.2</version>
 </dependency>
+<dependency>
+    <groupId>org.ddahl</groupId>
+    <artifactId>rscala_2.11</artifactId>
+    <version>1.0.13</version>
+</dependency>
+<dependency>
+    <groupId>io.continuum.bokeh</groupId>
+    <artifactId>bokeh_2.11</artifactId>
+    <version>0.7</version>
+</dependency>
   </dependencies>
 </project>
